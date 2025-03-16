@@ -1,0 +1,21 @@
+{
+    "name": "Snake Game",
+    "short_name": "Snake",
+    "description": "A classic Snake game built with HTML5, CSS, and JavaScript.",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4CAF50",
+    "icons": [
+        {
+            "src": "images/snake-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/snake-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
