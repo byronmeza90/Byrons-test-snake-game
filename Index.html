@@ -1,205 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Snake Game</title>
-    <style>
-        body {
-            text-align: center;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        #gameCanvas {
-            border: 1px solid #000;
-            background-color: #fff;
-            margin-top: 20px;
-        }
-        #controls {
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 0 10px;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>🚀 Snake Game 🚀</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Web App Manifest (for PWA) -->
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-    <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <div id="controls">
-        <button id="startButton">Start</button>
-        <button id="stopButton">Stop</button>
+    <div class="game-container">
+        <h1>🚀 Snake Game 🚀</h1>
+        
+        <div id="score">🏆 Score: 0</div>
+        
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <div id="controls">
+            <button id="startButton">▶️ Start</button>
+            <button id="stopButton">⏹️ Stop</button>
+        </div>
+
+        <!-- Touch Controls for Mobile -->
+        <div id="touchControls">
+            <div id="directionalButtons">
+                <button class="direction-button" id="up">⬆️</button>
+                <button class="direction-button" id="left">⬅️</button>
+                <button class="direction-button" id="down">⬇️</button>
+                <button class="direction-button" id="right">➡️</button>
+            </div>
+        </div>
     </div>
 
+    <!-- Sound Effects -->
+    <audio id="eatSound" src="sounds/eat.mp3"></audio>
+    <audio id="gameOverSound" src="sounds/gameover.mp3"></audio>
+
+    <!-- Link to JavaScript -->
+    <script src="script.js"></script>
+    <!-- Register Service Worker for PWA -->
     <script>
-        // Get canvas and context
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Define grid size
-        const grid = 20;
-
-        // Initialize snake with starting position
-        let snake = [
-            {x: 160, y: 200},
-            {x: 140, y: 200},
-            {x: 120, y: 200}
-        ];
-
-        // Initial direction
-        let direction = 'RIGHT';
-        let changingDirection = false;
-
-        // Initialize food position
-        let food = getRandomFood();
-
-        // Game loop interval
-        let gameInterval = null;
-
-        // Event listeners for buttons and keyboard
-        document.getElementById('startButton').addEventListener('click', startGame);
-        document.getElementById('stopButton').addEventListener('click', stopGame);
-        document.addEventListener("keydown", changeDirection);
-
-        // Function to start the game
-        function startGame() {
-            if (gameInterval) return; // Prevent multiple intervals
-            direction = 'RIGHT';
-            snake = [
-                {x: 160, y: 200},
-                {x: 140, y: 200},
-                {x: 120, y: 200}
-            ];
-            food = getRandomFood();
-            gameInterval = setInterval(gameLoop, 100);
-        }
-
-        // Function to stop the game
-        function stopGame() {
-            clearInterval(gameInterval);
-            gameInterval = null;
-        }
-
-        // Main game loop
-        function gameLoop() {
-            if (didGameEnd()) {
-                stopGame();
-                alert('Game Over! Press Start to play again.');
-                return;
-            }
-            changingDirection = false;
-            clearCanvas();
-            drawFood();
-            moveSnake();
-            drawSnake();
-        }
-
-        // Clear the canvas
-        function clearCanvas() {
-            ctx.fillStyle = "#fff";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = "#000";
-            ctx.strokeRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // Draw the snake on the canvas
-        function drawSnake() {
-            snake.forEach(part => {
-                ctx.fillStyle = '#00FF00';
-                ctx.fillRect(part.x, part.y, grid - 1, grid - 1);
-                ctx.strokeStyle = '#000';
-                ctx.strokeRect(part.x, part.y, grid - 1, grid - 1);
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
             });
-        }
-
-        // Move the snake in the current direction
-        function moveSnake() {
-            const head = {x: snake[0].x, y: snake[0].y};
-            switch(direction) {
-                case 'LEFT':
-                    head.x -= grid;
-                    break;
-                case 'UP':
-                    head.y -= grid;
-                    break;
-                case 'RIGHT':
-                    head.x += grid;
-                    break;
-                case 'DOWN':
-                    head.y += grid;
-                    break;
-            }
-            snake.unshift(head);
-
-            // Check if snake has eaten the food
-            if (head.x === food.x && head.y === food.y) {
-                food = getRandomFood();
-            } else {
-                snake.pop(); // Remove the tail if no food eaten
-            }
-        }
-
-        // Change direction based on key press
-        function changeDirection(event) {
-            if (changingDirection) return;
-            changingDirection = true;
-            const keyPressed = event.keyCode;
-            const LEFT = 37;
-            const UP = 38;
-            const RIGHT = 39;
-            const DOWN = 40;
-
-            if (keyPressed === LEFT && direction !== 'RIGHT') {
-                direction = 'LEFT';
-            }
-            if (keyPressed === UP && direction !== 'DOWN') {
-                direction = 'UP';
-            }
-            if (keyPressed === RIGHT && direction !== 'LEFT') {
-                direction = 'RIGHT';
-            }
-            if (keyPressed === DOWN && direction !== 'UP') {
-                direction = 'DOWN';
-            }
-        }
-
-        // Draw the food on the canvas
-        function drawFood() {
-            ctx.fillStyle = '#FF0000';
-            ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
-            ctx.strokeStyle = '#000';
-            ctx.strokeRect(food.x, food.y, grid - 1, grid - 1);
-        }
-
-        // Generate random position for food
-        function getRandomFood() {
-            const x = Math.floor(Math.random() * (canvas.width / grid)) * grid;
-            const y = Math.floor(Math.random() * (canvas.height / grid)) * grid;
-            // Ensure food does not appear on the snake
-            for (let part of snake) {
-                if (part.x === x && part.y === y) {
-                    return getRandomFood();
-                }
-            }
-            return {x, y};
-        }
-
-        // Check if the game has ended
-        function didGameEnd() {
-            // Check if snake has collided with itself
-            for (let i = 4; i < snake.length; i++) {
-                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
-                    return true;
-                }
-            }
-            // Check if snake has hit the wall
-            const hitLeftWall = snake[0].x < 0;
-            const hitRightWall = snake[0].x >= canvas.width;
-            const hitTopWall = snake[0].y < 0;
-            const hitBottomWall = snake[0].y >= canvas.height;
-            return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
         }
     </script>
 </body>
