@@ -25,7 +25,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     text-align: center;
-    max-width: 500px;
+    max-width: 800px; /* Increased max-width to accommodate larger buttons */
     width: 100%;
 }
 
@@ -56,7 +56,7 @@ h1 {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-    max-width: 400px;
+    max-width: 600px; /* Increased max-width for larger canvas */
     margin-bottom: 15px;
     box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
@@ -107,11 +107,11 @@ button:active {
     background-color: rgba(76, 175, 80, 0.8);
     border: none;
     color: white;
-    padding: 16px; /* Increased from 12px */
-    font-size: 1.5em; /* Increased from 1.2em */
+    padding: 48px; /* Increased from 16px to 48px */
+    font-size: 4.5em; /* Increased from 1.5em to 4.5em */
     border-radius: 50%;
-    width: 80px;    /* Increased from 60px */
-    height: 80px;   /* Increased from 60px */
+    width: 240px;    /* Increased from 80px to 240px */
+    height: 240px;   /* Increased from 80px to 240px */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -137,9 +137,9 @@ button:active {
         ".     up     ."
         "left  .     right"
         ".    down    .";
-    gap: 10px;
-    width: 150px;
-    height: 150px;
+    gap: 30px; /* Increased from 10px to 30px for larger buttons */
+    width: 720px; /* Adjusted to fit the larger buttons */
+    height: 720px; /* Adjusted to fit the larger buttons */
 }
 
 #up {
@@ -159,6 +159,44 @@ button:active {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .game-container {
+        max-width: 700px;
+    }
+
+    #directionalButtons {
+        width: 540px; /* Reduced proportionately */
+        height: 540px;
+        gap: 20px;
+    }
+
+    .direction-button {
+        padding: 36px;  /* 48px * 0.75 */
+        font-size: 3.375em; /* 4.5em * 0.75 */
+        width: 180px;    /* 240px * 0.75 */
+        height: 180px;   /* 240px * 0.75 */
+    }
+}
+
+@media (max-width: 900px) {
+    .game-container {
+        max-width: 500px;
+    }
+
+    #directionalButtons {
+        width: 360px; /* Further reduced */
+        height: 360px;
+        gap: 15px;
+    }
+
+    .direction-button {
+        padding: 24px;  /* 48px * 0.5 */
+        font-size: 2.25em; /* 4.5em * 0.5 */
+        width: 120px;    /* 240px * 0.5 */
+        height: 120px;   /* 240px * 0.5 */
+    }
+}
+
 @media (max-width: 600px) {
     h1 {
         font-size: 1.8em;
@@ -175,15 +213,15 @@ button:active {
     }
 
     .direction-button {
-        width: 70px;    /* Increased proportionally */
-        height: 70px;   /* Increased proportionally */
-        padding: 14px;  /* Increased proportionally */
-        font-size: 1.3em; /* Adjusted proportionally */
+        padding: 18px;    /* 24px * 0.75 */
+        font-size: 3em;   /* 2.25em * 1.333... */
+        width: 150px;     /* 120px * 1.25 */
+        height: 150px;    /* 120px * 1.25 */
     }
 
     #directionalButtons {
-        width: 140px;   /* Adjusted proportionally */
-        height: 140px;  /* Adjusted proportionally */
-        gap: 10px;      /* Adjusted proportionally */
+        width: 300px;     /* 360px * 0.833... */
+        height: 300px;    /* 360px * 0.833... */
+        gap: 12px;
     }
 }
