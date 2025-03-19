@@ -107,11 +107,11 @@ button:active {
     background-color: rgba(76, 175, 80, 0.8);
     border: none;
     color: white;
-    padding: 16px; /* Increased from 12px */
-    font-size: 1.5em; /* Increased from 1.2em */
+    padding: 26px; /* Increased from 12px */
+    font-size: 3em; /* Increased from 1.2em */
     border-radius: 50%;
-    width: 80px;    /* Increased from 60px */
-    height: 80px;   /* Increased from 60px */
+    width: 120px;    /* Increased from 60px */
+    height: 120px;   /* Increased from 60px */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
