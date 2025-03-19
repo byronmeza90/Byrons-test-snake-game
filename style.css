@@ -107,11 +107,11 @@ button:active {
     background-color: rgba(76, 175, 80, 0.8);
     border: none;
     color: white;
-    padding: 12px;
-    font-size: 1.2em;
+    padding: 16px; /* Increased from 12px */
+    font-size: 1.5em; /* Increased from 1.2em */
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 80px;    /* Increased from 60px */
+    height: 80px;   /* Increased from 60px */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -160,9 +160,13 @@ button:active {
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.8em;
+    .direction-button {
+        width: 70px;    /* Adjusted for smaller screens */
+        height: 70px;   /* Adjusted for smaller screens */
+        font-size: 1.3em; /* Adjusted for smaller screens */
+        padding: 14px; /* Adjusted for smaller screens */
     }
+    
 
     #score {
         font-size: 1.1em;
@@ -182,8 +186,8 @@ button:active {
     }
 
     #directionalButtons {
-        width: 130px;
-        height: 130px;
-        gap: 8px;
+        width: 140px;   /* Adjusted for smaller screens */
+        height: 140px;  /* Adjusted for smaller screens */
+        gap: 10px;      /* Adjusted for smaller screens */
     }
 }
