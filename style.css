@@ -173,8 +173,8 @@ button:active {
     .direction-button {
         padding: 36px;  /* 48px * 0.75 */
         font-size: 3.375em; /* 4.5em * 0.75 */
-        width: 180px;    /* 240px * 0.75 */
-        height: 180px;   /* 240px * 0.75 */
+        width: 200px;    /* 240px * 0.75 */
+        height: 200px;   /* 240px * 0.75 */
     }
 }
 
